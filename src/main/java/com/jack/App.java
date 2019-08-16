@@ -1,20 +1,28 @@
 package com.jack;
 
-import de.codecentric.boot.admin.config.EnableAdminServer;
+import com.jack.config.DefaultConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * Hello world!
  *
  */
-@Configuration
-@EnableAutoConfiguration
-@EnableAdminServer
-public class App 
-{
+
+//兼备了@EnableAutoConfiguration和@ComponentScan 注解的功能
+@SpringBootApplication
+@EnableAsync
+@EnableConfigurationProperties({DefaultConfig.class})
+public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
 }
+
+
+

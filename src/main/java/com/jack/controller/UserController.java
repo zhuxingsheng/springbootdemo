@@ -3,6 +3,7 @@ package com.jack.controller;
 import com.jack.config.DefaultConfig;
 import com.jack.event.DemoEvent;
 import com.jack.event.publish.EventPublisher;
+import com.jack.remote.service.RemoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +26,9 @@ public class UserController {
     @Autowired
     private DefaultConfig defaultConfig;
 
+    //@Autowired
+    private RemoteService remoteService;
+
     @RequestMapping(value = "/users/{username}",method = RequestMethod.GET)
     public String getUser(@PathVariable String username) {
 
@@ -36,8 +40,17 @@ public class UserController {
         eventPublisher.publish(() -> {
             log.info("lambad publish");
         });
-
         return "Welcome,"+username;
+    }
+
+
+    @RequestMapping(value = "/remote/{v}",method = RequestMethod.GET)
+    public String remote(@PathVariable String v) {
+
+        remoteService.remoteMethod();
+        remoteService.remoteMethod(v);
+
+        return "Welcome,"+v;
 
     }
 }

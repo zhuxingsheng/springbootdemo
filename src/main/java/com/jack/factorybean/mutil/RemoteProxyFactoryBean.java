@@ -16,11 +16,11 @@ import java.util.Arrays;
  * 很多remoteservice
  */
 @Slf4j
-public class RemoteProxyFactoryBean implements FactoryBean<Object> , MethodInterceptor {
+public class RemoteProxyFactoryBean<T> implements FactoryBean<T> , MethodInterceptor {
 
     @Setter
     @Getter
-    private Class remoteService;
+    private Class<T> remoteService;
 
     @Setter
     @Getter
@@ -28,13 +28,13 @@ public class RemoteProxyFactoryBean implements FactoryBean<Object> , MethodInter
 
 
     @Override
-    public Object getObject() throws Exception {
-        Object service = ProxyFactory.getProxy(remoteService, this);
+    public T getObject() throws Exception {
+        T service = ProxyFactory.getProxy(remoteService, this);
         return service;
     }
 
     @Override
-    public Class<?> getObjectType() {
+    public Class<T> getObjectType() {
         return remoteService;
     }
 

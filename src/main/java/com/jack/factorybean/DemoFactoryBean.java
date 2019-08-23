@@ -2,6 +2,7 @@ package com.jack.factorybean;
 
 import com.jack.remote.proxy.cglib.CglbHandler;
 import com.jack.remote.proxy.jdk.RemoteServiceProxy;
+import com.jack.remote.service.DemoRemoteService;
 import com.jack.remote.service.RemoteService;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
  *
  *
  */
-//@Component
+@Component
 public class DemoFactoryBean implements FactoryBean {
 
     @Override
@@ -20,12 +21,12 @@ public class DemoFactoryBean implements FactoryBean {
 //        RemoteServiceProxy proxy = new RemoteServiceProxy();
 //        return proxy.createProxy(RemoteService.class);
 
-        RemoteService remoteService = ProxyFactory.getProxy(RemoteService.class, new CglbHandler());
+        DemoRemoteService remoteService = ProxyFactory.getProxy(DemoRemoteService.class, new CglbHandler());
         return remoteService;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return RemoteService.class;
+        return DemoRemoteService.class;
     }
 }

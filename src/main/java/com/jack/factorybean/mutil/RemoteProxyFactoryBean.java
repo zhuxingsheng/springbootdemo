@@ -44,6 +44,9 @@ public class RemoteProxyFactoryBean<T> implements FactoryBean<T> , MethodInterce
         Method method = invocation.getMethod();
         log.info("method:{} invoked",method.getName());
 
+        if (method.getDeclaringClass() == Object.class && method.getName().equals("toString")) { return remoteService.getName() + "@" + System.identityHashCode(remoteService); }
+
+
         StringBuilder sb = new StringBuilder(url);
         sb.append(method.getName());
         sb.append("?var=");

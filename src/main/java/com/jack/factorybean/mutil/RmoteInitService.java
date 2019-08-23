@@ -5,14 +5,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +22,8 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class RmoteInitService implements InitializingBean {
+@Order(value = Ordered.HIGHEST_PRECEDENCE)
+public class RmoteInitService implements InitializingBean, CommandLineRunner {
 
     @Autowired
     private DefaultListableBeanFactory defaultListableBeanFactory;
@@ -35,9 +38,20 @@ public class RmoteInitService implements InitializingBean {
         log.info("afterPropertiesSet");
     }
 
-    @PostConstruct
+    public RmoteInitService() throws IOException {
+        log.info("init-Construct");
+    }
+
     public void init() throws IOException {
         log.info("init-PostConstruct");
+        registeRemoteService();
+    }
+
+
+
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("CommandLineRunner run");
         registeRemoteService();
     }
 
@@ -68,4 +82,6 @@ public class RmoteInitService implements InitializingBean {
     private String resolvePackageToScan(String scanPackage) {
         return "classpath*:" + ClassUtils.convertClassNameToResourcePath(scanPackage) + "/**/*.class";
     }
+
+
 }

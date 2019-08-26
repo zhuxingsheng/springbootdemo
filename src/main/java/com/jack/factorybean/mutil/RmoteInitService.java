@@ -58,6 +58,7 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner {
     private void registeRemoteService() throws IOException {
         SimpleMetadataReaderFactory metadataReaderFactory = new SimpleMetadataReaderFactory(this.applicationContext);
 
+        //读取此包下的所有类,进行包装
         Resource[] resources = applicationContext.getResources(resolvePackageToScan("com.jack.remote.service"));
 
         List<String> classNames = Arrays.stream(resources).map(resource -> {
@@ -70,6 +71,7 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner {
             return metadataReader.getClassMetadata().getClassName();
         }).collect(Collectors.toList());
 
+        //托管给容器
         classNames.forEach(clazz -> {
             BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(RemoteProxyFactoryBean.class);
             beanDefinitionBuilder.addPropertyValue("remoteService",clazz).addPropertyValue("url","http://remotehost/");

@@ -33,6 +33,16 @@ public class AppTest
      */
     public void testApp()
     {
+
+        Object a = null;
+
+        System.err.println(a);
+        String b = a+"null";
+
+        System.err.println(b);
+        System.err.println(a+"");
+        System.err.println(""+a);
+
         assertTrue( true );
     }
 }

@@ -46,7 +46,7 @@ public class RemoteProxyFactoryBean<T> implements FactoryBean<T> , MethodInterce
 
         if (method.getDeclaringClass() == Object.class && method.getName().equals("toString")) { return remoteService.getName() + "@" + System.identityHashCode(remoteService); }
 
-
+        //远程调用service,可以使用HTTP,也可以是TCP
         StringBuilder sb = new StringBuilder(url);
         sb.append(method.getName());
         sb.append("?var=");

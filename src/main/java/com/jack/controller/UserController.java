@@ -1,9 +1,9 @@
 package com.jack.controller;
 
+import com.jack.config.ApolloConfig;
 import com.jack.config.DefaultConfig;
 import com.jack.event.DemoEvent;
 import com.jack.event.publish.EventPublisher;
-import com.jack.remote.service.RemoteService;
 import com.jack.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ApolloConfig apolloConfig;
+
 
 
     @RequestMapping(value = "/users/{username}",method = RequestMethod.GET)
@@ -51,6 +54,14 @@ public class UserController {
     public String remote(@PathVariable String v) {
 
         userService.remote(v);
+
+        return "Welcome,"+v;
+
+    }
+    @RequestMapping(value = "/config/{v}",method = RequestMethod.GET)
+    public String config(@PathVariable String v) {
+
+        log.info("{}", apolloConfig.getVersion());
 
         return "Welcome,"+v;
 

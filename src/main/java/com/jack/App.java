@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableConfigurationProperties({DefaultConfig.class})
-//@ComponentScan(value = {"com.jack"})
+@ComponentScan(value = {"com.zhuxingsheng.remote","com.jack"} )
 public class App {
 
 //    @Autowired

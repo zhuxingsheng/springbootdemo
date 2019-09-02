@@ -1,5 +1,6 @@
-package com.jack.factorybean.mutil;
+package com.zhuxingsheng.remote;
 
+import com.jack.factorybean.mutil.RemoteProxyFactoryBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,19 @@ import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 这个类是动态注册bean,需要在引用类使用@Autowired前先加载，但@Order没有生效，不知为何？
+ *
+ * 如何解决：方法有二
+ * 1. 在启动类中主动@Autowired一下
+ * 2. 在@ComponentScan指定包时，先扫描
+ */
 @Service
 @Slf4j
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
@@ -35,13 +44,14 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.info("afterPropertiesSet");
+        log.info("init-afterPropertiesSet");
     }
 
     public RmoteInitService() throws IOException {
         log.info("init-Construct");
     }
 
+    @PostConstruct
     public void init() throws IOException {
         log.info("init-PostConstruct");
         registeRemoteService();
@@ -51,8 +61,8 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("CommandLineRunner run");
-        registeRemoteService();
+        log.info("init-CommandLineRunner run");
+        //registeRemoteService();
     }
 
     private void registeRemoteService() throws IOException {

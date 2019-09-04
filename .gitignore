@@ -1,0 +1,12 @@
+/.idea
+*.iml
+/target
+*.log
+.project
+.classpath
+.settings
+target
+.idea
+/superjjk-service/target
+/superjjk-service/superjjk-service.iml
+/generator-client-api/generator-client-api.iml

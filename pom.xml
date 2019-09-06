@@ -15,8 +15,9 @@
 
     <modules>
         <module>generator-client-api</module>
-        <module>superjjk-service</module>
+        <module>superjjk-client-api</module>
         <module>superjjk-client</module>
+        <module>superjjk-service</module>
     </modules>
 
 
@@ -28,68 +29,6 @@
     </parent>
 
 
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>Nexus Public Repository</name>
-            <url>http://114.55.251.46:8081/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <!--<updatePolicy>always</updatePolicy>-->
-            </snapshots>
-        </repository>
-        <repository>
-            <id>releases</id>
-            <name>Nexus Release Repository</name>
-            <url>http://114.55.251.46:8081/repository/maven-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>snapshots</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>http://114.55.251.46:8081/repository/maven-snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>thirdparty</id>
-            <name>Nexus thirdparty Repository</name>
-            <url>http://114.55.251.46:8081/repository/thirdparty</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <!--<updatePolicy>always</updatePolicy>-->
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <url>http://114.55.251.46:8081/repository/maven-central/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-
-        <pluginRepository>
-            <id>snapshots</id>
-            <url>http://114.55.251.46:8081/repository/maven-snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
     <build>
         <plugins>

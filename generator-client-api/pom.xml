@@ -10,6 +10,99 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>generator-client-api</artifactId>
+    <packaging>pom</packaging>
 
+    <build>
+        <plugins>
+            <!-- 合并swagge文档 -->
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <properties>
+                        <inFile>${project.basedir}/src/main/swagger-spec/all/index.yaml</inFile>
+                        <outFile>${project.basedir}/src/main/swagger-spec/api</outFile>
+                    </properties>
+                    <source>
+                        import io.swagger.parser.Swagger20Parser
+                        import io.swagger.parser.SwaggerResolver
+                        import io.swagger.util.Json
+                        import io.swagger.util.Yaml
+                        import org.apache.commons.io.FileUtils
 
+                        def parser = new Swagger20Parser()
+                        def path = properties['inFile']
+                        def swagger = parser.read(path, null)
+                        def resolver = new SwaggerResolver(swagger, null, path)
+                        resolver.resolve()
+                        def out = properties['outFile']
+                        Json.pretty().writeValue(new File(out + '.json'), swagger)
+                        Yaml.pretty().writeValue(new File(out + '.yaml'), swagger)
+                    </source>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-parser</artifactId>
+                        <version>1.0.25</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>2.2.2</version>
+                <configuration>
+                    <!-- specify the swagger yaml -->
+                    <inputSpec>${project.basedir}/../generator-client-api/src/main/swagger-spec/api.yaml</inputSpec>
+                    <output>${project.basedir}/../superjjk-client-api/swagger-codegen</output>
+                    <!-- target to generate -->
+                    <language>spring</language>
+                    <!-- pass any necessary config options -->
+                    <modelPackage>com.jjk.client.model</modelPackage>
+                    <templateDirectory>src/main/swagger-templates/spring</templateDirectory>
+                    <!-- Model加前缀 和app model区分 -->
+                    <modelNamePrefix>Ms</modelNamePrefix>
+                    <configOptions>
+                        <sourceFolder>src/main/java</sourceFolder>
+                        <apiPackage>com.jjk.client.api</apiPackage>
+                        <basePackage>com.jjk</basePackage>
+                        <interfaceOnly>true</interfaceOnly>
+                        <java8>true</java8>
+                        <jdk8>true</jdk8>
+                        <dateLibrary>java8</dateLibrary>
+                        <additional-properties>
+                            jackson=true
+                        </additional-properties>
+                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                        <!-- 数据类型映射 -->
+                        <type-mappings>LocalDate=java.util.Date</type-mappings>
+                        <!--<import-mappings>MSResponse=com.xforceplus.xplatframework.model.Response</import-mappings>-->
+                    </configOptions>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.12</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>swagger-codegen/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

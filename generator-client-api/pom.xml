@@ -64,7 +64,7 @@
                     <modelPackage>com.jjk.client.model</modelPackage>
                     <templateDirectory>src/main/swagger-templates/spring</templateDirectory>
                     <!-- Model加前缀 和app model区分 -->
-                    <modelNamePrefix>Ms</modelNamePrefix>
+<!--                    <modelNamePrefix>Ms</modelNamePrefix>-->
                     <configOptions>
                         <sourceFolder>src/main/java</sourceFolder>
                         <apiPackage>com.jjk.client.api</apiPackage>
@@ -79,7 +79,6 @@
                         <hideGenerationTimestamp>true</hideGenerationTimestamp>
                         <!-- 数据类型映射 -->
                         <type-mappings>LocalDate=java.util.Date</type-mappings>
-                        <!--<import-mappings>MSResponse=com.xforceplus.xplatframework.model.Response</import-mappings>-->
                     </configOptions>
                     <verbose>true</verbose>
                 </configuration>

@@ -1,0 +1,5 @@
+swagger: 2.0
+models:
+  InvoiceVo:
+    descriptions: invoice data
+    type: object

@@ -1,0 +1,14 @@
+swagger: 2.0
+paths:
+  invoiceList: #/invoice/create
+  post:
+    paramaters:
+      - name: invoice
+      descriptions: new invoice data
+      required: true
+      schema:
+        $ref:
+
+    responses:
+      200:
+

@@ -14,10 +14,28 @@ schemes:
 host: 127.0.0.1
 basePath: /
 
+# 定义一些对象
+definitions:
+  UserResponse:
+    description: general Response object
+    type: object
+    properties:
+      code:
+        description: return code 0:失败   1：成功
+        type: integer
+        format: int32
+      message:
+        description: return message
+        type: string
+      result:
+        description: 业务结果
+        type: string
 
 #
 paths:
-  /users:
+  /user/list:
+    tags:
+    - User
     get:
       summary: get all users info
       description: list users info
@@ -27,13 +45,25 @@ paths:
           schema:
             type: array
             items:
-              required:
-                - username
-              properties:
-                firstName:
-                  type: string
-                username:
-                  type: string
+              $ref: "#/definitions/UserResponse"
+  /user/{id}:
+    tags:
+    - User
+    get:
+      description: get user by userId
+      parameters:
+      - name: userId
+        desceptions: user id
+        in: path
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: response user
+          schema:
+            type: object
+            $ref: "#/definitions/UserResponse"
 
 
 

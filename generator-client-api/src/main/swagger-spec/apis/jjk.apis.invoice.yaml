@@ -1,18 +1,37 @@
 swagger: 2.0
 paths:
   invoiceList: #/invoice/create
-    post:
+    get:
       tags:
         - Invoice
+      operationId: listInvoice
       paramaters:
       - name: invoice
         descriptions: new invoice data
         required: true
         schema:
-          $ref: "../models/jjk.models.invoice.yaml#InvoiceVo"
+          $ref: "../models/jjk.models.invoice.yaml#/InvoiceVo"
       responses:
         200:
           description: invoice list
           schema:
-            $ref: "../models/jjk.models.invoice.yaml#Invoices"
+            type: object
+            $ref: "../models/jjk.models.invoice.yaml#/Invoices"
+  invoice:
+    post:
+      tags:
+        - Invoice
+      operationId: createInvoice
+      paramaters:
+        - name: invoice
+          descriptions: create invoice
+          required: true
+          schema:
+            $ref: ../models/jjk.models.invoice.yaml#/InvoiceVo
+      responses:
+        200:
+          descriptions: success
+          schema:
+            type: integer
+            format: int64
 

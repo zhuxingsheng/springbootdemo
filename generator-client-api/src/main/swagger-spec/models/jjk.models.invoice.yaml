@@ -13,4 +13,4 @@ InvoiceVo:
 Invoices:
   type: array
   items:
-    $ref: "#InvoiceVo"
+    $ref: "#/InvoiceVo"

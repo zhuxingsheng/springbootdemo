@@ -66,6 +66,8 @@ paths:
             $ref: "#/definitions/UserResponse"
   /invoice/list:
     $ref: ../apis/jjk.apis.invoice.yaml#/paths/invoiceList
+  /invoice/invoice:
+    $ref: ../apis/jjk.apis.invoice.yaml#/paths/invoice
 
 
 

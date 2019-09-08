@@ -34,9 +34,9 @@ definitions:
 #
 paths:
   /user/list:
-    tags:
-    - User
     get:
+      tags:
+        - User
       summary: get all users info
       description: list users info
       responses:
@@ -47,9 +47,9 @@ paths:
             items:
               $ref: "#/definitions/UserResponse"
   /user/{id}:
-    tags:
-    - User
     get:
+      tags:
+        - User
       description: get user by userId
       parameters:
       - name: userId
@@ -64,8 +64,8 @@ paths:
           schema:
             type: object
             $ref: "#/definitions/UserResponse"
-
-
+  /invoice/list:
+    $ref: ../apis/jjk.apis.invoice.yaml#/paths/invoiceList
 
 
 

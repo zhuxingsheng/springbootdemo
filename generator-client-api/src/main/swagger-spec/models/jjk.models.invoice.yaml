@@ -1,5 +1,16 @@
 swagger: 2.0
-models:
-  InvoiceVo:
-    descriptions: invoice data
-    type: object
+InvoiceVo:
+  descriptions: invoice data
+  required:
+    - id
+    - invoiceNo
+  properties:
+    id:
+      type: integer
+      format: int64
+    invoiceNo:
+      type: string
+Invoices:
+  type: array
+  items:
+    $ref: "#InvoiceVo"

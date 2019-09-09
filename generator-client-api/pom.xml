@@ -49,14 +49,13 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
             <plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>2.2.2</version>
+                <version>2.4.8</version>
                 <configuration>
                     <!-- specify the swagger yaml -->
-                    <inputSpec>${project.basedir}/../generator-client-api/src/main/swagger-spec/api.yaml</inputSpec>
+                    <inputSpec>${project.basedir}/../generator-client-api/src/main/swagger-spec/all/index.yaml</inputSpec>
                     <output>${project.basedir}/../superjjk-client-api/swagger-codegen</output>
                     <!-- target to generate -->
                     <language>spring</language>

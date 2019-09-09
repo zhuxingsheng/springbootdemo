@@ -12,7 +12,7 @@ public class RemotePostProcessor implements BeanFactoryPostProcessor {
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        BeanDefinition bd = beanFactory.getBeanDefinition("feignContext");
-        bd.setDependsOn("eurekaAutoServiceRegistration");
+//        BeanDefinition bd = beanFactory.getBeanDefinition("feignContext");
+//        bd.setDependsOn("eurekaAutoServiceRegistration");
     }
 }

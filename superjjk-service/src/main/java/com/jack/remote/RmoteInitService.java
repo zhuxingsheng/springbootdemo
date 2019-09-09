@@ -1,4 +1,4 @@
-package com.zhuxingsheng.remote;
+package com.jack.remote;
 
 import com.jack.factorybean.mutil.RemoteProxyFactoryBean;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
@@ -36,7 +37,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
-public class RmoteInitService implements InitializingBean, CommandLineRunner, BeanFactoryPostProcessor {
+public class RmoteInitService implements ApplicationContextAware,InitializingBean, CommandLineRunner, BeanFactoryPostProcessor {
 
     @Autowired
     private DefaultListableBeanFactory defaultListableBeanFactory;
@@ -49,6 +50,8 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner, Be
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("init-afterPropertiesSet");
+        registeRemoteService();
+
     }
 
     public RmoteInitService() throws IOException {
@@ -57,8 +60,9 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner, Be
 
     @PostConstruct
     public void init() throws IOException {
+
         log.info("init-PostConstruct");
-        registeRemoteService();
+
     }
 
 
@@ -105,5 +109,10 @@ public class RmoteInitService implements InitializingBean, CommandLineRunner, Be
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

@@ -9,7 +9,7 @@ import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 
-@EnableApolloConfig
+//@EnableApolloConfig
 @Configuration
 @Slf4j
 public class ApolloConfig {

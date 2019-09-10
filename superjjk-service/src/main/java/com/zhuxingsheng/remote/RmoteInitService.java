@@ -1,4 +1,4 @@
-package com.jack.remote;
+package com.zhuxingsheng.remote;
 
 import com.jack.factorybean.mutil.RemoteProxyFactoryBean;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
-public class RmoteInitService implements ApplicationContextAware,InitializingBean, CommandLineRunner, BeanFactoryPostProcessor {
+public class RmoteInitService implements ApplicationContextAware,InitializingBean, CommandLineRunner {
 
     @Autowired
     private DefaultListableBeanFactory defaultListableBeanFactory;
@@ -50,7 +50,7 @@ public class RmoteInitService implements ApplicationContextAware,InitializingBea
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("init-afterPropertiesSet");
-        registeRemoteService();
+        //
 
     }
 
@@ -60,9 +60,8 @@ public class RmoteInitService implements ApplicationContextAware,InitializingBea
 
     @PostConstruct
     public void init() throws IOException {
-
         log.info("init-PostConstruct");
-
+        registeRemoteService();
     }
 
 
@@ -106,10 +105,6 @@ public class RmoteInitService implements ApplicationContextAware,InitializingBea
     }
 
 
-    @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-
-    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
